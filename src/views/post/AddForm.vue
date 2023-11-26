@@ -144,7 +144,7 @@
 </template>
 
 <script>
-import { createPosts } from '@/api/post.js';
+import { createPost } from '@/api/post.js';
 export default {
   components: {
     PostCode: () => import('@/components/PostCode.vue'),
@@ -210,7 +210,7 @@ export default {
       ) {
         postData.append('image', this.images[index]);
       }
-      const { data } = await createPosts(postData);
+      const { data } = await createPost(postData);
       console.log(data);
       this.$router.push('/protect-post');
     },

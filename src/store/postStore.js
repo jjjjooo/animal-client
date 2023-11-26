@@ -1,12 +1,12 @@
 import {
-  fetchPosts,
-  fetchPost,
-  requestGood,
+  getPost,
+  getPostList,
+  //requestGood,
   deletePost,
   updatePost,
-  requestGetMyPosts,
-  requestGetMyGoodPosts,
-  requestGetTagPosts,
+  requestGetMyPost,
+  requestGetMyGoodPost,
+  requestGetTagPost,
 } from '@/api/post';
 
 const postStore = {
@@ -75,46 +75,49 @@ const postStore = {
   },
 
   actions: {
-    async REQUEST_PUSH_GOOD(context, payload) {
-      const { data } = await requestGood(payload);
-      const good = context.getters.good;
-      context.commit('SET_POST_GOOD', !good);
-      return data;
-    },
-    async REQUEST_GET_POST({ commit }, payload) {
-      const { data } = await fetchPost(payload);
-      console.log(data);
+    async REQUEST_GET_POSTDETAIL({ commit }, payload) {
+      const { data } = await getPost(payload);
+
       commit('SET_POST_GOOD', data.good);
       commit('SET_POST_DETAIL', data);
-      commit('SET_POST_ADDRESS', data.address);
     },
 
-    async REQUEST_GET_ALL_POST_PAGE({ commit }, payload) {
-      const response = await fetchPosts(payload);
+    async REQUEST_GET_MISSING_POST_LIST(
+      { commit },
+      payload,
+    ) {
+      const response = await getPostList(payload);
       console.log(response.data);
-      if (response.data.data[0].dtype === 'pr') {
-        commit('SET_POST_LIST', response.data.data);
-        commit(
-          'SET_POST_TOTAL_PAGE',
-          response.data.totalPage,
-        );
-      } else if (response.data.data[0].dtype === 'ms') {
-        commit('SET_POST_LIST2', response.data.data);
-        commit(
-          'SET_POST_TOTAL_PAGE',
-          response.data.totalPage,
-        );
-      }
-    },
-    async REQUEST_GET_SEARCH_POST({ commit }, payload) {
-      const response = await fetchPosts(payload);
-      console.log(response.data);
-      commit('SET_POST_SEARCH', response.data.data);
+      commit('SET_MISSING_POST_LIST', response.data);
       commit(
         'SET_POST_TOTAL_PAGE',
         response.data.totalPage,
       );
     },
+
+    async REQUEST_GET_PROTECT_POST_LIST(
+      { commit },
+      payload,
+    ) {
+      const response = await getPostList(payload);
+      console.log(response.data);
+      commit('SET_PROTECT_POST_LIST', response.data);
+      commit(
+        'SET_POST_TOTAL_PAGE',
+        response.data.totalPage,
+      );
+    },
+
+    async REQUEST_GET_SEARCH_POST({ commit }, payload) {
+      const response = await getPostList(payload);
+      console.log(response.data);
+      commit('SET_POST_SEARCH', response.data);
+      commit(
+        'SET_POST_TOTAL_PAGE',
+        response.data.totalPage,
+      );
+    },
+
     async REQUEST_DELETE_POST(context, payload) {
       const response = await deletePost(payload);
       if (response) {
@@ -122,14 +125,16 @@ const postStore = {
       }
       await this.router.push('/protect-post');
     },
+
     async REQUEST_UPDATE_POST(context, payload) {
       const response = await updatePost(payload);
       if (response) {
         alert('정상적으로 수정되었습니다.');
       }
     },
+
     async REQUEST_GET_MY_POST(context, payload) {
-      const response = await requestGetMyPosts(payload);
+      const response = await requestGetMyPost(payload);
       console.log(response.data);
       if (response) {
         context.commit('SET_MY_POST_LIST', response.data);
@@ -139,13 +144,15 @@ const postStore = {
         );
       }
     },
+
     async REQUEST_GET_TAG_POST(context, paylod) {
-      const { data } = await requestGetTagPosts(paylod);
+      const { data } = await requestGetTagPost(paylod);
       console.log(data);
       context.commit('SET_TAG_SEARCH', data);
     },
+
     async REQUEST_GET_MY_GOOD_POST(context, payload) {
-      const response = await requestGetMyGoodPosts(payload);
+      const response = await requestGetMyGoodPost(payload);
       console.log(response.data);
       if (response) {
         context.commit(

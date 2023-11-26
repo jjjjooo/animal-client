@@ -16,8 +16,6 @@
       </template>
     </div>
   </section>
-  <!-- </v-row>
-  </v-container> -->
 </template>
 <script>
 import { VueDaumPostcode } from 'vue-daum-postcode';
