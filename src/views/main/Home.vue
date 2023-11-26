@@ -7,7 +7,7 @@
 <script>
 export default {
   components: {
-    Preview: () => import('@/views/posts/Preview'),
+    Preview: () => import('@/views/post/Preview'),
   },
 };
 </script>
