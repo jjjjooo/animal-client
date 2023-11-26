@@ -144,7 +144,7 @@
 </template>
 
 <script>
-import { createPosts } from '@/api/posts.js';
+import { createPosts } from '@/api/post.js';
 export default {
   components: {
     PostCode: () => import('@/components/PostCode.vue'),

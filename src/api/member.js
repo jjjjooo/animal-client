@@ -1,32 +1,27 @@
-import { auth } from '@/api/index.js';
+import { member } from '@/api/index.js';
 
-//회원가입
 function registerMember(memberData) {
-  return auth.post('/signup', memberData);
+  return member.post('/sign-up', memberData);
 }
 
-//로그인
 function loginMember(memberData) {
-  return auth.post('/login', memberData);
+  return member.post('/login', memberData);
 }
 
 function getInfo() {
-  return auth.get('/');
+  return member.get('/');
 }
 
 function updateMember(memberData) {
-  return auth.put('/', memberData);
+  return member.put('/', memberData);
 }
 
 function deleteMember(memberData) {
-  return auth.delete('/', {
+  return member.delete('/', {
     params: { password: memberData.password },
   });
 }
 
-//회원탈퇴
-
-//회원수정
 export {
   registerMember,
   loginMember,

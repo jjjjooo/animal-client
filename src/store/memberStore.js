@@ -9,7 +9,7 @@ import {
   getInfo,
   updateMember,
   deleteMember,
-} from '@/api/auth.js';
+} from '@/api/member.js';
 
 const memberStore = {
   state: {
@@ -55,16 +55,14 @@ const memberStore = {
     },
     async GET_INFO({ commit }, memberData) {
       const { data } = await getInfo(memberData);
-      console.log(data);
+
       commit('setInfo', data);
     },
     async UPDATE(memberData) {
-      const { data } = await updateMember(memberData);
-      console.log(data);
+      await updateMember(memberData);
     },
     async DELETE(memberData) {
-      const { data } = await deleteMember(memberData);
-      console.log(data);
+      await deleteMember(memberData);
     },
   },
 };

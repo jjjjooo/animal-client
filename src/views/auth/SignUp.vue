@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { registerMember } from '@/api/auth.js';
+import { registerMember } from '@/api/member.js';
 
 import PostCode from '@/components/PostCode.vue';
 export default {
@@ -90,12 +90,11 @@ export default {
   data() {
     return {
       postOpen: false,
+      show: false,
       name: '',
       email: '',
       password: '',
-      logMessage: '',
       address: [],
-      show: false,
     };
   },
 

@@ -11,8 +11,6 @@ function createInstance() {
 function createInstanceWithAuth(url) {
   const instance = axios.create({
     baseURL: `/api/${url}`,
-    // baseURL: `${process.env.VUE_APP_API_URL}${url}`,
-    // baseURL: `${process.env.dev.VUE_APP_API_URL}${url}`,
   });
 
   return setIntercepotors(instance);
@@ -20,6 +18,6 @@ function createInstanceWithAuth(url) {
 
 export const instance = createInstance();
 
-export const auth = createInstanceWithAuth('auth');
-export const posts = createInstanceWithAuth('post');
-export const chatting = createInstanceWithAuth('chat');
+export const member = createInstanceWithAuth('members');
+export const posts = createInstanceWithAuth('posts');
+export const chatting = createInstanceWithAuth('chats');

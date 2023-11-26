@@ -7,7 +7,7 @@ import {
   requestGetMyPosts,
   requestGetMyGoodPosts,
   requestGetTagPosts,
-} from '@/api/posts';
+} from '@/api/post';
 
 const postStore = {
   state: {
