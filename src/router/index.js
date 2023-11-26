@@ -5,70 +5,72 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'Index',
-    component: () => import('@/views/main/Index.vue'),
+    path: '',
+    name: 'INDEX',
+    component: () => import('@/views/Index.vue'),
     children: [
       {
-        path: '/home',
-        name: 'Home',
-        component: () => import('@/views/main/Home.vue'),
-      },
-      {
-        path: '/protect-post',
-        name: 'Protect',
+        path: '/',
+        name: 'HomePreview',
         component: () =>
-          import('@/views/post/MainList.vue'),
+          import('@/components/post/Preview.vue'),
       },
       {
         path: '/add-form',
         name: 'AddForm',
-        component: () => import('@/views/post/AddForm.vue'),
+        component: () =>
+          import('@/components/post/AddForm.vue'),
       },
       {
-        path: '/post-detail/:id',
+        path: '/post-category',
+        name: 'Category',
+        component: () =>
+          import('@/components/post/MainList.vue'),
+      },
+      {
+        path: '/post-detail/:postId',
         name: 'PostDetail',
         component: () =>
-          import('@/views/post/DetailPost.vue'),
+          import('@/components/post/DetailPost.vue'),
       },
-      {
-        path: '/auth/my-post',
-        component: () => import('@/views/member/MyPost'),
-      },
+      // {
+      //   path: '/auth/my-post',
+      //   component: () => import('@/views/member/MyPost'),
+      // },
 
-      {
-        path: '/auth/my-good',
-        component: () =>
-          import('@/views/member/MyGoodPost'),
-      },
-      {
-        path: '/chat/room',
-        component: () => import('@/views/member/ChatRoom'),
-      },
-      {
-        path: '/search-tag',
-        name: 'search',
-        component: () =>
-          import('@/views/post/SearchPostTag'),
-        props: true,
-      },
-      {
-        path: '/chat',
-        component: () => import('@/components/Chat'),
-      },
-      {
-        path: '/chat/room',
-        component: () => import('@/views/member/ChatRoom'),
-      },
+      // {
+      //   path: '/auth/my-good',
+      //   component: () =>
+      //     import('@/views/member/MyGoodPost'),
+      // },
+      // {
+      //   path: '/chat/room',
+      //   component: () => import('@/views/member/ChatRoom'),
+      // },
+      // {
+      //   path: '/search-tag',
+      //   name: 'search',
+      //   component: () =>
+      //     import('@/views/post/SearchPostTag'),
+      //   props: true,
+      // },
+      // {
+      //   path: '/chat',
+      //   component: () => import('@/components/Chat'),
+      // },
+      // {
+      //   path: '/chat/room',
+      //   component: () => import('@/views/member/ChatRoom'),
+      // },
     ],
   },
   {
     path: '/members/sign-in',
-    component: () => import('@/views/member/SignIn'),
+    component: () => import('@/views/SignIn'),
   },
   {
     path: '/members/sign-up',
-    component: () => import('@/views/member/SignUp'),
+    component: () => import('@/views/SignUp'),
   },
 ];
 
