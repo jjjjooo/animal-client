@@ -1,21 +1,10 @@
 function saveAuthToCookie(value) {
-  localStorage.setItem('ACCESS_TOKEN', value);
-}
-
-function saveUserToCookie(value) {
-  localStorage.setItem('NAME', value);
+  document.cookie = `til_auth=${value}`;
 }
 
 function getAuthFromCookie() {
   return document.cookie.replace(
     /(?:(?:^|.*;\s*)til_auth\s*=\s*([^;]*).*$)|^.*$/,
-    '$1',
-  );
-}
-
-function getUserFromCookie() {
-  return document.cookie.replace(
-    /(?:(?:^|.*;\s*)til_user\s*=\s*([^;]*).*$)|^.*$/,
     '$1',
   );
 }
@@ -26,8 +15,6 @@ function deleteCookie(value) {
 
 export {
   saveAuthToCookie,
-  saveUserToCookie,
   getAuthFromCookie,
-  getUserFromCookie,
   deleteCookie,
 };

@@ -3,13 +3,12 @@ import App from './App.vue';
 import router from './router';
 import { store } from './store/store';
 import vuetify from './plugins/vuetify';
+
 import '@/plugins/vee-validation';
-import vueCookies from 'vue-cookies';
 
 Vue.config.productionTip = false;
 
 new Vue({
-  vueCookies,
   router,
   store,
   vuetify,

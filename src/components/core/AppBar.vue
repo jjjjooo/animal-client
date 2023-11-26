@@ -46,7 +46,7 @@
     </template>
     <v-btn
       v-if="!isLogin"
-      to="/auth/sign-in"
+      to="/members/sign-in"
       text
       class="font-weight-bold"
     >
@@ -79,7 +79,7 @@
             </v-list-item-avatar>
             <v-list-item-content>
               <v-list-item-title class="text-h6">
-                {{ username }}
+                {{ member.name }}
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
@@ -120,13 +120,10 @@
 </template>
 
 <script>
-// Utilities
-//import { deleteCookie } from '@/utils/cookies';
 import { mapMutations } from 'vuex';
 export default {
   data: () => ({
     isScrolling: false,
-    loginName: '',
     items: [
       {
         to: '/home',
@@ -168,11 +165,7 @@ export default {
           0) > 20;
     },
     logOut() {
-      this.$store.commit('clearMember');
-      // deleteCookie('til_auth');
-      // deleteCookie('til_user');
-      localStorage.removeItem('NAME');
-      localStorage.removeItem('ACCESS_TOKEN');
+      this.$store.dispatch('LOGOUT');
       this.$router.push('/home');
     },
   },
@@ -180,8 +173,8 @@ export default {
     isLogin() {
       return this.$store.getters.isLogin;
     },
-    username() {
-      return this.$store.state.memberStore.username;
+    member() {
+      return this.$store.state.memberStore.member;
     },
   },
 };

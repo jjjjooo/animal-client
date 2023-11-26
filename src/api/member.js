@@ -8,7 +8,7 @@ function loginMember(memberData) {
   return member.post('/login', memberData);
 }
 
-function getInfo() {
+function getMemberInfo() {
   return member.get('/');
 }
 
@@ -25,7 +25,7 @@ function deleteMember(memberData) {
 export {
   registerMember,
   loginMember,
-  getInfo,
+  getMemberInfo,
   updateMember,
   deleteMember,
 };

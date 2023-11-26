@@ -78,15 +78,15 @@ export default {
 
   methods: {
     async login() {
+      const memberData = {
+        email: this.email,
+        password: this.password,
+      };
+
       try {
-        const memberData = {
-          email: this.email,
-          password: this.password,
-        };
         await this.$store.dispatch('LOGIN', memberData);
         this.$router.push('/');
       } catch (error) {
-        alert(error.response.data.errorMessage);
         this.initForm();
       }
     },
