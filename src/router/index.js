@@ -18,19 +18,18 @@ const routes = [
         path: '/protect-post',
         name: 'Protect',
         component: () =>
-          import('@/views/posts/MainList.vue'),
+          import('@/views/post/MainList.vue'),
       },
       {
         path: '/add-form',
         name: 'AddForm',
-        component: () =>
-          import('@/views/posts/AddForm.vue'),
+        component: () => import('@/views/post/AddForm.vue'),
       },
       {
         path: '/post-detail/:id',
         name: 'PostDetail',
         component: () =>
-          import('@/views/posts/DetailPost.vue'),
+          import('@/views/post/DetailPost.vue'),
       },
       {
         path: '/auth/my-post',
@@ -50,7 +49,7 @@ const routes = [
         path: '/search-tag',
         name: 'search',
         component: () =>
-          import('@/views/posts/SearchPostTag'),
+          import('@/views/post/SearchPostTag'),
         props: true,
       },
       {
