@@ -34,16 +34,17 @@ const routes = [
       },
       {
         path: '/auth/my-post',
-        component: () => import('@/views/auth/MyPost'),
+        component: () => import('@/views/member/MyPost'),
       },
 
       {
         path: '/auth/my-good',
-        component: () => import('@/views/auth/MyGoodPost'),
+        component: () =>
+          import('@/views/member/MyGoodPost'),
       },
       {
         path: '/chat/room',
-        component: () => import('@/views/auth/ChatRoom'),
+        component: () => import('@/views/member/ChatRoom'),
       },
       {
         path: '/search-tag',
@@ -58,17 +59,17 @@ const routes = [
       },
       {
         path: '/chat/room',
-        component: () => import('@/views/auth/ChatRoom'),
+        component: () => import('@/views/member/ChatRoom'),
       },
     ],
   },
   {
-    path: '/auth/sign-in',
-    component: () => import('@/views/auth/SignIn'),
+    path: '/members/sign-in',
+    component: () => import('@/views/member/SignIn'),
   },
   {
-    path: '/auth/sign-up',
-    component: () => import('@/views/auth/SignUp'),
+    path: '/members/sign-up',
+    component: () => import('@/views/member/SignUp'),
   },
 ];
 

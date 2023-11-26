@@ -1,68 +1,48 @@
 import {
   saveAuthToCookie,
-  saveUserToCookie,
-  getAuthFromCookie,
-  getUserFromCookie,
+  deleteCookie,
 } from '@/utils/cookies.js';
-import {
-  loginMember,
-  getInfo,
-  updateMember,
-  deleteMember,
-} from '@/api/member.js';
+
+import { loginMember } from '@/api/member.js';
 
 const memberStore = {
   state: {
-    username: getUserFromCookie() || '',
-    token: getAuthFromCookie() || '',
-    address: '',
-    info: [],
+    memberId: '',
+    memberName: '',
+    memberProfile: '',
   },
+
   getters: {
     isLogin(state) {
-      return state.username !== '';
+      return state.memberId !== '';
     },
   },
+
   mutations: {
-    setMembername(state, username) {
-      state.username = username;
+    SET_LOGIN_MEMBER(state, payload) {
+      state.memberId = payload.memberId;
+      state.memberName = payload.name;
     },
-    clearMember(state) {
-      state.username = '';
+
+    CLEAR_MEMBER(state) {
       state.token = '';
-    },
-    setToken(state, token) {
-      state.token = token;
-    },
-    setArea(state, payload) {
-      state.address = payload;
-    },
-    setInfo(state, payload) {
-      state.info = payload;
+      state.memberId = '';
+      state.memberName = '';
+      state.memberProfile = '';
     },
   },
 
   actions: {
-    async LOGIN({ commit }, memberData) {
+    async LOGIN(context, memberData) {
       const { data } = await loginMember(memberData);
-      console.log(data);
-      commit('setToken', data.token);
-      commit('setMembername', data.name);
-      commit('setArea', data.address);
       saveAuthToCookie(data.token);
-      saveUserToCookie(data.name);
+      context.commit('SET_LOGIN_MEMBER', data);
       return data;
     },
-    async GET_INFO({ commit }, memberData) {
-      const { data } = await getInfo(memberData);
 
-      commit('setInfo', data);
-    },
-    async UPDATE(memberData) {
-      await updateMember(memberData);
-    },
-    async DELETE(memberData) {
-      await deleteMember(memberData);
+    async LOGOUT(context) {
+      deleteCookie('til_auth');
+      context.commit('CLEAR_MEMBER');
     },
   },
 };

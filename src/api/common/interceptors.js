@@ -1,8 +1,8 @@
+import { getAuthFromCookie } from '@/utils/cookies.js';
 export function setIntercepotors(instance) {
   instance.interceptors.request.use(
     function (config) {
-      const accessToken =
-        localStorage.getItem('ACCESS_TOKEN');
+      const accessToken = getAuthFromCookie();
       config.headers.Authorization =
         'Bearer ' + accessToken;
       return config;
