@@ -1,6 +1,19 @@
 <template>
   <v-app>
     <v-container>
+      <v-row justify="center" no-gutters class="mt-6">
+        <v-col cols="3">
+          <v-text-field
+            label="태그로 검색하기"
+            solo
+            v-model="search"
+            v-on:keydown.enter.prevent="searchTag(search)"
+            @click:append-outer="searchTag(search)"
+            append-outer-icon="mdi-magnify"
+          >
+          </v-text-field>
+        </v-col>
+      </v-row>
       <v-row>
         <v-col cols="12">
           <v-tabs
@@ -28,7 +41,9 @@
           align="center"
           ><v-tabs-items>
             <v-card max-width="400" class="auto"
-              ><router-link :to="`/post-detail/${list.id}`">
+              ><router-link
+                :to="`/post-detail/${list.postId}`"
+              >
                 <v-img
                   :src="`https://source.unsplash.com/random`"
                   height="200px"
@@ -90,6 +105,7 @@
         >
       </v-row>
       <v-dialog
+        max-width="1000"
         v-model="openPostForm"
         persistent
         @click:outside="closeModal"

@@ -126,11 +126,11 @@ export default {
     isScrolling: false,
     items: [
       {
-        to: '/home',
+        to: '/',
         text: 'Home',
       },
       {
-        to: '/protect-post',
+        to: '/post-category',
         text: '더 보기',
       },
     ],

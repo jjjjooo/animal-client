@@ -10,11 +10,13 @@
         :disabled="!updateFlag"
       />
     </div>
-    <div class="post-box" v-if="postOpen">
-      <template>
-        <VueDaumPostcode @complete="oncomplete" />
-      </template>
-    </div>
+    <v-dialog v-model="postOpen">
+      <div class="post-box">
+        <template>
+          <VueDaumPostcode @complete="oncomplete" />
+        </template>
+      </div>
+    </v-dialog>
   </section>
 </template>
 <script>

@@ -59,7 +59,7 @@
                   :input-value="selected"
                   close
                   @click="select"
-                  @click:close="remove(item)"
+                  @click:close="removeTag(item)"
                 >
                   <strong>{{ item }}</strong
                   >&nbsp;
@@ -214,7 +214,6 @@
 </template>
 
 <script>
-//import { mount } from '@vue/test-utils';
 export default {
   name: 'postDetail',
   components: {
@@ -228,15 +227,6 @@ export default {
       chips: [],
       rChips: [],
       rAddress: '',
-      updateDetail: {
-        title: '',
-        feature: '',
-        tag: '',
-        gender: '',
-        address: { sido: '', sigungu: '', bname: '' },
-        dtype: '',
-        postId: '',
-      },
     };
   },
   methods: {
@@ -250,26 +240,25 @@ export default {
       console.log(data);
       this.updateDetail.address = data;
     },
-    remove(item) {
-      this.chips.splice(this.chips.indexOf(item), 1);
-      this.chips = [...this.chips];
+    removeTag(item) {
+      this.chips = this.chips.filter(chip => chip !== item);
     },
     chat() {
       let data = {
-        postId: this.postDetail.id,
-        sender: this.$store.state.memberStore.username,
-        receiver: this.postDetail.username,
+        postId: this.postDetail.postId,
       };
       this.$store.dispatch('REQUEST_ADD_CHATROOM', data);
     },
+
     pushGood(postId) {
       this.$store.dispatch('REQUEST_PUSH_GOOD', postId);
     },
+
     deletePost() {
       if (this.checkAuthority()) {
         this.$store.dispatch(
           'REQUEST_DELETE_POST',
-          this.postDetail.id,
+          this.postDetail.postId,
         );
       }
     },
@@ -292,7 +281,7 @@ export default {
 
     temp() {
       const postData = new FormData();
-      let dto = {
+      let updateRequest = {
         postId: this.postDetail.id,
         title: this.updateDetail.title,
         feature: this.updateDetail.feature,
@@ -304,25 +293,16 @@ export default {
       };
 
       postData.append(
-        'key',
-        new Blob([JSON.stringify(dto)], {
+        'updateRequest',
+        new Blob([JSON.stringify(updateRequest)], {
           type: 'application/json',
         }),
       );
 
-      for (
-        var index = 0;
-        index < this.images.length;
-        index++
-      ) {
-        postData.append('image', this.images[index]);
-      }
+      this.images.forEach(image =>
+        postData.append('images', image),
+      );
       this.$store.dispatch('REQUEST_UPDATE_POST', postData);
-      // .then(() => {
-      //   this.$router.go(0);
-      // });
-      console.log(dto);
-      console.log(this.updateDetail.address);
     },
   },
   computed: {
@@ -332,22 +312,12 @@ export default {
     postDetail() {
       return this.$store.state.postStore.postDetail;
     },
-    username() {
-      return this.$store.state.memberStore.username;
-    },
-    postList() {
-      return this.$store.state.postStore.postList;
-    },
-    postAddress() {
-      return this.$store.state.postStore.address;
-    },
   },
   created() {
-    this.$store
-      .dispatch('REQUEST_GET_POST', this.$route.params.id)
-      .then(() => {
-        this.rAddress = this.$store.state.postStore.address;
-      });
+    this.$store.dispatch(
+      'REQUEST_GET_POST_DETAIL',
+      this.$route.params.postId,
+    );
   },
 };
 </script>

@@ -11,7 +11,7 @@ import {
 
 const postStore = {
   state: {
-    tagList: null,
+    tagList: [],
     searchList: [],
     missingPostList: [],
     protectPostList: [],
@@ -21,9 +21,6 @@ const postStore = {
     postTotalPage: 0,
     postCurrentPage: 1,
     postGood: false,
-    myPostTotalPage: 1,
-    myPostCurrentPage: 1,
-    address: '',
   },
   getters: {
     good(state) {
@@ -67,7 +64,7 @@ const postStore = {
   },
 
   actions: {
-    async REQUEST_GET_POSTDETAIL({ commit }, payload) {
+    async REQUEST_GET_POST_DETAIL({ commit }, payload) {
       const { data } = await getPost(payload);
       commit('SET_POST_GOOD', data.good);
       commit('SET_POST_DETAIL', data);

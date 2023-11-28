@@ -42,13 +42,6 @@ const routes = [
       //   component: () => import('@/views/member/ChatRoom'),
       // },
       // {
-      //   path: '/search-tag',
-      //   name: 'search',
-      //   component: () =>
-      //     import('@/views/post/SearchPostTag'),
-      //   props: true,
-      // },
-      // {
       //   path: '/chat',
       //   component: () => import('@/components/Chat'),
       // },
