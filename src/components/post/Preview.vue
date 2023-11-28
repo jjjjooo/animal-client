@@ -7,7 +7,7 @@
           class="mt-4"
           color="primary"
           dark
-          to="/protect-post"
+          to="/post-category"
           >더 보기</v-btn
         ></v-col
       >
@@ -21,7 +21,10 @@
     <v-row>
       <v-col cols="12">
         <v-slide-group class="pa-4" multiple show-arrows>
-          <v-slide-item v-for="n in postList" :key="n.id">
+          <v-slide-item
+            v-for="n in missingPostList"
+            :key="n.id"
+          >
             <v-card class="ma-4">
               <router-link :to="`/post-detail/${n.id}`">
                 <v-img
@@ -46,7 +49,10 @@
     <v-row>
       <v-col cols="12">
         <v-slide-group class="pa-4" multiple show-arrows>
-          <v-slide-item v-for="n in postList2" :key="n.id">
+          <v-slide-item
+            v-for="n in protectPostList"
+            :key="n.id"
+          >
             <v-card class="ma-4">
               <router-link :to="`/post-detail/${n.id}`">
                 <v-img
@@ -68,26 +74,25 @@
 <script>
 export default {
   data: () => ({
-    category: '1',
-    items: '',
+    category: 'PROTECT',
     categories: [
       {
         text: '보호 중',
-        filter: '1',
+        filter: 'PROTECT',
       },
       {
         text: '찾는 중',
-        filter: '2',
+        filter: 'MISSING',
       },
     ],
   }),
 
   computed: {
-    postList() {
-      return this.$store.state.postStore.postList;
+    missingPostList() {
+      return this.$store.state.postStore.missingPostList;
     },
-    postList2() {
-      return this.$store.state.postStore.postList2;
+    protectPostList() {
+      return this.$store.state.postStore.protectPostList;
     },
   },
   methods: {
@@ -96,18 +101,21 @@ export default {
     },
   },
   created() {
-    let form = {
-      page: 1,
-      dType: 'pr',
-    };
-    this.$store.dispatch('REQUEST_GET_ALL_POST_PAGE', form);
-    let form2 = {
-      page: 1,
-      dType: 'ms',
+    const protectForm = {
+      page: 0,
+      postType: 'PROTECT',
     };
     this.$store.dispatch(
-      'REQUEST_GET_ALL_POST_PAGE',
-      form2,
+      'REQUEST_GET_PROTECT_POST_LIST',
+      protectForm,
+    );
+    const missingForm = {
+      page: 0,
+      postType: 'MISSING',
+    };
+    this.$store.dispatch(
+      'REQUEST_GET_MISSING_POST_LIST',
+      missingForm,
     );
   },
 };

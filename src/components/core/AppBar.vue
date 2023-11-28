@@ -166,7 +166,7 @@ export default {
     },
     logOut() {
       this.$store.dispatch('LOGOUT');
-      this.$router.push('/home');
+      this.$router.push('/');
     },
   },
   computed: {

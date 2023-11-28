@@ -13,8 +13,8 @@ const postStore = {
   state: {
     tagList: null,
     searchList: [],
-    postList: [],
-    postList2: [],
+    missingPostList: [],
+    protectPostList: [],
     postDetail: '',
     myPostList: [],
     myGoodPostList: '',
@@ -34,11 +34,11 @@ const postStore = {
     SET_POST_SEARCH(state, payload) {
       state.searchList = payload;
     },
-    SET_POST_LIST(state, payload) {
-      state.postList = payload;
+    SET_MISSING_POST_LIST(state, payload) {
+      state.missingPostList = payload;
     },
-    SET_POST_LIST2(state, payload) {
-      state.postList2 = payload;
+    SET_PROTECT_POST_LIST(state, payload) {
+      state.protectPostList = payload;
     },
     SET_POST_DETAIL(state, payload) {
       state.postDetail = payload;
@@ -64,20 +64,11 @@ const postStore = {
     SET_TAG_SEARCH(state, payload) {
       state.tagList = payload;
     },
-    SET_POST_ADDRESS(state, payload) {
-      state.address =
-        payload.sido +
-        ' ' +
-        payload.sigungu +
-        ' ' +
-        payload.bname;
-    },
   },
 
   actions: {
     async REQUEST_GET_POSTDETAIL({ commit }, payload) {
       const { data } = await getPost(payload);
-
       commit('SET_POST_GOOD', data.good);
       commit('SET_POST_DETAIL', data);
     },
@@ -89,10 +80,6 @@ const postStore = {
       const response = await getPostList(payload);
       console.log(response.data);
       commit('SET_MISSING_POST_LIST', response.data);
-      commit(
-        'SET_POST_TOTAL_PAGE',
-        response.data.totalPage,
-      );
     },
 
     async REQUEST_GET_PROTECT_POST_LIST(
@@ -102,10 +89,6 @@ const postStore = {
       const response = await getPostList(payload);
       console.log(response.data);
       commit('SET_PROTECT_POST_LIST', response.data);
-      commit(
-        'SET_POST_TOTAL_PAGE',
-        response.data.totalPage,
-      );
     },
 
     async REQUEST_GET_SEARCH_POST({ commit }, payload) {
@@ -135,7 +118,7 @@ const postStore = {
 
     async REQUEST_GET_MY_POST(context, payload) {
       const response = await requestGetMyPost(payload);
-      console.log(response.data);
+
       if (response) {
         context.commit('SET_MY_POST_LIST', response.data);
         context.commit(
@@ -153,7 +136,7 @@ const postStore = {
 
     async REQUEST_GET_MY_GOOD_POST(context, payload) {
       const response = await requestGetMyGoodPost(payload);
-      console.log(response.data);
+
       if (response) {
         context.commit(
           'SET_MY_GOOD_POST_LIST',

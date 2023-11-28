@@ -46,10 +46,8 @@ export default {
     },
     oncomplete: function (result) {
       if (result.userSelectedType === 'R') {
-        // 도로명 주소 선택
         this.address = result.roadAddress;
       } else {
-        // 지번 주소 선택
         this.address = result.jibunAddress;
       }
       this.postOpen = false;

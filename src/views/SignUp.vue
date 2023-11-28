@@ -105,7 +105,6 @@ export default {
         data.sigungu,
         data.bname,
       );
-      console.log(this.address);
     },
     async submitForm() {
       try {
@@ -115,9 +114,8 @@ export default {
           password: this.password,
           address: this.address,
         };
-        const { data } = await registerMember(memberData);
-        console.log(data);
-        this.$router.push('/auth/sign-in');
+        await registerMember(memberData);
+        this.$router.push('/members/sign-in');
       } catch (e) {
         console.log(e.error);
       }

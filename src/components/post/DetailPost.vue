@@ -289,14 +289,6 @@ export default {
         this.chips = [];
       }
     },
-    checkAuthority() {
-      if (this.username !== this.postDetail.username) {
-        console.log('틀림');
-        return false;
-      }
-      console.log('맞음');
-      return true;
-    },
 
     temp() {
       const postData = new FormData();

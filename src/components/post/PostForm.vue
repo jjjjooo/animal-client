@@ -90,7 +90,7 @@
             </v-col>
             <v-col>
               <v-combobox
-                v-model="tags"
+                v-model="tagNameList"
                 :items="chips"
                 chips
                 clearable
@@ -111,7 +111,7 @@
                     :input-value="selected"
                     close
                     @click="select"
-                    @click:close="remove(item)"
+                    @click:close="removeTag(item)"
                   >
                     <strong>{{ item }}</strong
                     >&nbsp;
@@ -149,19 +149,16 @@ export default {
   components: {
     PostCode: () => import('@/components/PostCode.vue'),
   },
-  name: 'AddForm',
-
   data: () => ({
     title: '',
     feature: '',
-    type: '',
-    type2: '',
-    images: [],
-    tags: [],
-    items: ['보호', '분실'],
-
+    postType: '',
+    items: [
+      { text: '보호', value: 'PROTECT' },
+      { text: '분실', value: 'MISSING' },
+    ],
+    tagNameList: [],
     chips: ['태그를', '추가해보세요'],
-    neutering: '',
     gender: '',
     address: '',
     updateFlag: true,
@@ -175,43 +172,32 @@ export default {
     addrSelected(data) {
       this.address = data;
     },
-    remove(item) {
-      this.chips.splice(this.chips.indexOf(item), 1);
-      this.chips = [...this.chips];
+    removeTag(item) {
+      this.chips = this.chips.filter(chip => chip !== item);
     },
     async createPost() {
-      if (this.type === '보호') {
-        this.type2 = 'pr';
-      } else {
-        this.type2 = 'ms';
-      }
       const postData = new FormData();
-      let dto = {
+      let saveRequest = {
         title: this.title,
         feature: this.feature,
-        type2: this.type2,
+        postType: this.postType,
         images: this.images,
-        tags: this.tags,
+        tagNameList: this.tagNameList,
         gender: this.gender,
-        neutering: this.neutering,
         address: this.address,
       };
+
       postData.append(
-        'key',
-        new Blob([JSON.stringify(dto)], {
+        'saveRequest',
+        new Blob([JSON.stringify(saveRequest)], {
           type: 'application/json',
         }),
       );
 
-      for (
-        var index = 0;
-        index < this.images.length;
-        index++
-      ) {
-        postData.append('image', this.images[index]);
-      }
-      const { data } = await createPost(postData);
-      console.log(data);
+      this.images.forEach(image =>
+        postData.append('images', image),
+      );
+      await createPost(postData);
       this.$router.push('/protect-post');
     },
   },

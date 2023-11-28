@@ -16,12 +16,6 @@ const routes = [
           import('@/components/post/Preview.vue'),
       },
       {
-        path: '/add-form',
-        name: 'AddForm',
-        component: () =>
-          import('@/components/post/AddForm.vue'),
-      },
-      {
         path: '/post-category',
         name: 'Category',
         component: () =>

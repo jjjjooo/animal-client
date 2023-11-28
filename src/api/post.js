@@ -25,12 +25,17 @@ function getPost(payload) {
 }
 
 function getPostList(payload) {
-  return post.get('', payload);
+  return post.get('', {
+    params: {
+      page: payload.page,
+      type: payload.postType,
+    },
+  });
 }
 
 function requestGetMyPost(data) {
   return post.get(`/my/${data.page}`, {
-    params: { name: data.username, dType: data.type },
+    params: { name: data.username, postType: data.type },
   });
 }
 
