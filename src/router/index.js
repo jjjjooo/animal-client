@@ -25,7 +25,7 @@ const routes = [
         path: '/post-detail/:postId',
         name: 'PostDetail',
         component: () =>
-          import('@/components/post/DetailPost.vue'),
+          import('@/components/post/PostDetail.vue'),
       },
       // {
       //   path: '/auth/my-post',

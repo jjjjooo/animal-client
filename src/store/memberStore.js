@@ -14,6 +14,8 @@ const memberStore = {
 
   getters: {
     isLogin(state) {
+      let stateGood = state.memberId !== '';
+      console.log(stateGood);
       return state.memberId !== '';
     },
   },
@@ -43,6 +45,10 @@ const memberStore = {
     async LOGOUT(context) {
       deleteCookie('til_auth');
       context.commit('CLEAR_MEMBER');
+    },
+
+    SET_POST_GOOD(state, payload) {
+      state.postGood = payload;
     },
   },
 };

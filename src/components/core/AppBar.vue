@@ -148,11 +148,6 @@ export default {
         icon: 'mdi-format-float-left',
         to: '/auth/my-post',
       },
-      {
-        text: '내 대화',
-        icon: 'mdi-wechat',
-        to: '/chat/room',
-      },
     ],
   }),
 

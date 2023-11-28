@@ -20,13 +20,8 @@ const postStore = {
     myGoodPostList: '',
     postTotalPage: 0,
     postCurrentPage: 1,
-    postGood: false,
   },
-  getters: {
-    good(state) {
-      return state.postGood;
-    },
-  },
+  getters: {},
   mutations: {
     SET_POST_SEARCH(state, payload) {
       state.searchList = payload;
@@ -51,9 +46,6 @@ const postStore = {
     },
     SET_POST_CURRENT_PAGE(state, payload) {
       state.postCurrentPage = payload;
-    },
-    SET_POST_GOOD(state, payload) {
-      state.postGood = payload;
     },
     SET_MY_POST_TOTAL_PAGE(state, payload) {
       state.myPostTotalPage = payload;

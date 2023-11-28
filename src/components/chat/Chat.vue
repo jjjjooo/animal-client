@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isChatShow" class="chattingWrap2">
+  <div v-if="!getShowChatStatus" class="chattingWrap2">
     <v-icon large @click="openDiagramEditor">{{
       'mdi-wechat'
     }}</v-icon>
@@ -54,7 +54,7 @@ export default {
 
   methods: {
     openDiagramEditor() {
-      this.isChatShow = true;
+      this.$store.dispatch('OPEN_CHAT_DIALOG', true);
     },
     handleRoomSelected(roomId) {
       this.selectedRoomId = roomId;
@@ -69,6 +69,11 @@ export default {
         'REQUEST_GET_CHAT_LOG_LIST',
         getLogData,
       );
+    },
+  },
+  computed: {
+    getShowChatStatus() {
+      return this.$store.getters.getShowChatStatus;
     },
   },
 };

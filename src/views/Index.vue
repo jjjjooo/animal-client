@@ -7,15 +7,6 @@
   </v-app>
 </template>
 
-<template>
-  <v-app app>
-    <toolbar />
-    <jumbotron />
-    <chat-wrap />
-    <router-view />
-  </v-app>
-</template>
-
 <script>
 export default {
   components: {

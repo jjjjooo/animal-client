@@ -1,15 +1,23 @@
 import chat from '@/api/chat.js';
-import router from '@/router/index';
 
 const chatStore = {
   state: {
+    showChatComponent: false,
     chatLogList: [],
     newChatLogList: [],
     chatRoomList: [],
     chatRoomDetails: '',
     chatCount: '',
   },
+  getters: {
+    getShowChatStatus(state) {
+      return state.showChatComponent;
+    },
+  },
   mutations: {
+    SET_CHAT_DIALOG_STATUS(state, payload) {
+      state.showChatComponent = payload;
+    },
     CLEAR_STATE(state) {
       state.chatLogList = null;
       state.newChatLogList = null;
@@ -57,30 +65,30 @@ const chatStore = {
   },
 
   actions: {
+    OPEN_CHAT_DIALOG(context) {
+      context.commit('SET_CHAT_DIALOG_STATUS', true);
+    },
+    CLOSE_CHAT_DIALOG(context) {
+      context.commit('SET_CHAT_DIALOG_STATUS', false);
+    },
     RESPONSE_MESSAGE(context, payload) {
       context.commit('ADD_CHAT_MESSAGE', payload);
     },
-
     READ_ALL_MESSAGE(context, payload) {
       chat.requestReadAllMessage(payload);
       context.commit('READ_OLD_MESSAGE', payload);
     },
-
     ADD_NEW_CHAT(context, payload) {
       context.commit('ADD_NEW_CHAT', payload);
     },
-
     async REQUEST_ADD_CHATROOM(context, payload) {
       const response = await chat.requestAddChatRoom(
         payload,
       );
-      context.commit('SET_CHAT_ROOM_DETAIL', response.data);
-      await router.push({
-        path: '/chat',
-        query: {
-          roomId: response.data.id,
-        },
-      });
+      await context.commit(
+        'SET_CHAT_ROOM_DETAIL',
+        response.data,
+      );
     },
 
     async REQUEST_GET_CHAT_LOG_LIST(context, payload) {
