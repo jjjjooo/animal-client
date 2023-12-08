@@ -6,18 +6,11 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '',
-    name: 'INDEX',
     component: () => import('@/views/Index.vue'),
     children: [
       {
         path: '/',
-        name: 'HomePreview',
-        component: () =>
-          import('@/components/post/Preview.vue'),
-      },
-      {
-        path: '/post-category',
-        name: 'Category',
+        name: 'Home',
         component: () =>
           import('@/components/post/MainList.vue'),
       },
@@ -27,28 +20,6 @@ const routes = [
         component: () =>
           import('@/components/post/PostDetail.vue'),
       },
-      // {
-      //   path: '/auth/my-post',
-      //   component: () => import('@/views/member/MyPost'),
-      // },
-
-      // {
-      //   path: '/auth/my-good',
-      //   component: () =>
-      //     import('@/views/member/MyGoodPost'),
-      // },
-      // {
-      //   path: '/chat/room',
-      //   component: () => import('@/views/member/ChatRoom'),
-      // },
-      // {
-      //   path: '/chat',
-      //   component: () => import('@/components/Chat'),
-      // },
-      // {
-      //   path: '/chat/room',
-      //   component: () => import('@/views/member/ChatRoom'),
-      // },
     ],
   },
   {

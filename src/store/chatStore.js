@@ -8,6 +8,7 @@ const chatStore = {
     chatRoomList: [],
     chatRoomDetails: '',
     chatCount: '',
+    selectedRoomDeatil: '',
   },
   getters: {
     getShowChatStatus(state) {
@@ -15,6 +16,9 @@ const chatStore = {
     },
   },
   mutations: {
+    SET_SELECTED_ROOM_DETAIL(state, payload) {
+      state.selectedRoomDeatil = payload;
+    },
     SET_CHAT_DIALOG_STATUS(state, payload) {
       state.showChatComponent = payload;
     },
@@ -81,6 +85,9 @@ const chatStore = {
     ADD_NEW_CHAT(context, payload) {
       context.commit('ADD_NEW_CHAT', payload);
     },
+    ADD_SELECTED_ROOM_DEATIL(context, payload) {
+      context.commit('SET_SELECTED_ROOM_DETAIL', payload);
+    },
     async REQUEST_ADD_CHATROOM(context, payload) {
       const response = await chat.requestAddChatRoom(
         payload,
@@ -89,6 +96,7 @@ const chatStore = {
         'SET_CHAT_ROOM_DETAIL',
         response.data,
       );
+      context.commit('SET_CHAT_DIALOG_STATUS', true);
     },
 
     async REQUEST_GET_CHAT_LOG_LIST(context, payload) {
@@ -100,7 +108,6 @@ const chatStore = {
     },
 
     async REQUEST_GET_CHAT_ROOM_LIST(context, payload) {
-      console.log(payload);
       const response = await chat.requestGetChatRooms(
         payload,
       );

@@ -1,5 +1,6 @@
 function saveAuthToCookie(value) {
   document.cookie = `til_auth=${value}`;
+  localStorage.setItem('ACCESS_TOKEN', value);
 }
 
 function getAuthFromCookie() {

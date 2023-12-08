@@ -124,29 +124,28 @@ import { mapMutations } from 'vuex';
 export default {
   data: () => ({
     isScrolling: false,
+    showMenu: false,
     items: [
       {
         to: '/',
         text: 'Home',
       },
-      {
-        to: '/post-category',
-        text: '더 보기',
-      },
     ],
-    showMenu: false,
     infoes: [
-      { text: '내정보', icon: 'mdi-account-outline' },
-
+      {
+        text: '내정보',
+        icon: 'mdi-account-outline',
+        to: null,
+      },
       {
         text: '좋아요 게시글',
         icon: 'mdi-thumb-up',
-        to: '/auth/my-good',
+        to: '/members/my-good',
       },
       {
         text: '내 게시글',
         icon: 'mdi-format-float-left',
-        to: '/auth/my-post',
+        to: '/members/my-post',
       },
     ],
   }),

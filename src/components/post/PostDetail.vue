@@ -32,13 +32,11 @@
     <div class="summaryInfo">
       <div class="summaryInfoWrap">
         <ul>
-          <li
-            v-for="(item, index) in userCharacterList"
-            :key="index"
-            class="postCharacter"
-          >
-            <span>{{ item.label }}</span>
-            <h3 class="gray">{{ item.value }}</h3>
+          <li v-for="detail in details" :key="detail.key">
+            <span>{{ detail.label }}</span>
+            <h3 class="gray">
+              {{ detail.value || detail.default }}
+            </h3>
           </li>
           <li class="tagWordWrap">
             <span>태 그</span>
@@ -74,7 +72,7 @@
               margin-bottom: 50px;
             "
           >
-            특징
+            특징 /내용
             <p
               style="
                 font-size: 14px;
@@ -83,12 +81,7 @@
                 color: rgb(51, 51, 51);
               "
             >
-              기사는 중세부터 유럽에서 기마로 싸우는
-              전사에게 주는 명예 칭호 및 그로부터 파생한
-              계급을 가리킨다. 기사는 분류상 귀족이지만 귀족
-              중에는 최하급 귀족에 속하며 준귀족적인 성격을
-              띤다. 우리가 흔히 부르는 귀족은 기사보다
-              상위의 귀족을 의미한다.
+              {{ postDetail.feature }}
             </p>
           </div>
         </div>
@@ -111,13 +104,7 @@
 export default {
   data() {
     return {
-      userCharacterList: [
-        { label: '제 목', value: 'UI/UX디자인' },
-        { label: '작성자', value: '회원1번' },
-        { label: '작성일', value: '2023/12/21' },
-        { label: '주 소', value: '판교역 123번지' },
-        { label: '성 별', value: '수컷' },
-      ],
+      postCharacterList: [],
       good: false,
       images: [],
     };
@@ -148,9 +135,10 @@ export default {
         postId: this.postDetail.postId,
         postCreatorId: this.postDetail.creatorId,
       };
-      this.$store
-        .dispatch('REQUEST_ADD_CHATROOM', checkChatRequest)
-        .then();
+      this.$store.dispatch(
+        'REQUEST_ADD_CHATROOM',
+        checkChatRequest,
+      );
     },
 
     pushGood(postId) {
@@ -192,9 +180,6 @@ export default {
     },
   },
   computed: {
-    postGood() {
-      return this.$store.state.postStore.postGood;
-    },
     postDetail() {
       return this.$store.state.postStore.postDetail;
     },
@@ -207,6 +192,38 @@ export default {
     getShowChatStatus() {
       return this.$store.getters.getShowChatStatus;
     },
+    details() {
+      return [
+        {
+          key: 'title',
+          label: '제 목',
+          value: this.postDetail.title,
+        },
+        {
+          key: 'creatorName',
+          label: '작성자',
+          value: this.postDetail.creatorName,
+        },
+        {
+          key: 'createdAt',
+          label: '작성일',
+          value: this.postDetail.createdAt,
+        },
+        {
+          key: 'address',
+          label: '주 소',
+          value: this.postDetail.address,
+          default: '주소 정보 없음',
+        },
+        {
+          key: 'gender',
+          label: '성 별',
+          value: this.postDetail.gender,
+          default: '성별 정보 없음',
+        },
+        // Add more details as needed
+      ];
+    },
   },
   created() {
     this.$store.dispatch(
@@ -217,7 +234,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .postInfoSection {
   width: 100%;
   margin: 0 auto;

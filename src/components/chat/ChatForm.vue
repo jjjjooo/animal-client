@@ -1,9 +1,24 @@
 <template>
-  <div class="chatInputArea">
-    <div class="input-box">
+  <div
+    class="input-box"
+    style="
+      width: 100%;
+      display: flex;
+      box-sizing: border-box;
+      align-items: flex-end;
+      background-color: #fff;
+      padding: 0 8px;
+      align-items: center;
+      box-shadow: 0 3px 20px 0 rgba(0, 0, 0, 0);
+      z-index: 1;
+    "
+  >
+    <div>
       <v-icon class="image-icon">
         mdi-tooltip-image-outline
       </v-icon>
+    </div>
+    <div style="margin-left: 8px">
       <v-file-input
         id="img"
         multiple
@@ -11,15 +26,16 @@
         style="display: none"
       />
     </div>
+
     <input
-      class="form__input"
+      style="width: 100%"
       type="text"
       placeholder="메세지를 입력하세요."
       v-model.trim="message"
       @keyup.enter="submitMessage"
     />
 
-    <div @click="submitMessage" class="form__submit">
+    <v-btn @click="submitMessage" variant="plain">
       <svg
         width="30"
         height="30"
@@ -46,7 +62,7 @@
           </clipPath>
         </defs>
       </svg>
-    </div>
+    </v-btn>
   </div>
 </template>
 
@@ -68,50 +84,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.chatInputArea {
-  width: 100%;
-  display: flex;
-  box-sizing: border-box;
-  align-items: flex-end;
-  background-color: #fff;
-  padding: 0 24px;
-  align-items: center;
-  box-shadow: 0 3px 20px 0 rgba(0, 0, 0, 0.12);
-  z-index: 1;
-}
-.form {
-  display: flex;
-  justify-content: space-between;
-  padding: 1.4rem;
-  background: #ffffff;
-  border-radius: 30px 30px 24px 24px;
-  box-shadow: 0px -5px 30px rgba(0, 0, 0, 0.05);
-}
-
-.form__input {
-  border: none;
-  padding: 0.5rem;
-  font-size: 16px;
-  width: calc(100% - 60px);
-}
-
-.form__input:focus {
-  outline: none;
-}
-
-.form__submit {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-svg {
-  transition: 0.3s;
-}
-
-svg:hover {
-  fill: #999999;
-}
-</style>

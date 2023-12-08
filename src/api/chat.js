@@ -25,7 +25,7 @@ function requestGetNotReadCount(data) {
 }
 
 function requestReadAllMessage(data) {
-  return chatting.post(`/${data}`);
+  return chatting.post(`/${data.roomId}`);
 }
 
 export default {

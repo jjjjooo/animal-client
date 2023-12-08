@@ -21,7 +21,6 @@ const postStore = {
     postTotalPage: 0,
     postCurrentPage: 1,
   },
-  getters: {},
   mutations: {
     SET_POST_SEARCH(state, payload) {
       state.searchList = payload;
@@ -60,6 +59,7 @@ const postStore = {
       const { data } = await getPost(payload);
       commit('SET_POST_GOOD', data.good);
       commit('SET_POST_DETAIL', data);
+      return data;
     },
 
     async REQUEST_GET_MISSING_POST_LIST(
@@ -67,7 +67,6 @@ const postStore = {
       payload,
     ) {
       const response = await getPostList(payload);
-      console.log(response.data);
       commit('SET_MISSING_POST_LIST', response.data);
     },
 
@@ -76,13 +75,11 @@ const postStore = {
       payload,
     ) {
       const response = await getPostList(payload);
-      console.log(response.data);
       commit('SET_PROTECT_POST_LIST', response.data);
     },
 
     async REQUEST_GET_SEARCH_POST({ commit }, payload) {
       const response = await getPostList(payload);
-      console.log(response.data);
       commit('SET_POST_SEARCH', response.data);
       commit(
         'SET_POST_TOTAL_PAGE',
@@ -95,7 +92,7 @@ const postStore = {
       if (response) {
         alert('정상적으로 삭제되었습니다.');
       }
-      await this.router.push('/protect-post');
+      this.router.push('/');
     },
 
     async REQUEST_UPDATE_POST(context, payload) {
@@ -103,6 +100,7 @@ const postStore = {
       if (response) {
         alert('정상적으로 수정되었습니다.');
       }
+      this.router.push('/');
     },
 
     async REQUEST_GET_MY_POST(context, payload) {

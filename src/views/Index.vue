@@ -12,7 +12,7 @@ export default {
   components: {
     Toolbar: () => import('@/components/core/AppBar'),
     Jumbotron: () => import('@/components/core/Jumbotron'),
-    ChatWrap: () => import('@/components/chat/Chat.vue'),
+    ChatWrap: () => import('@/views/Chat.vue'),
   },
 };
 </script>

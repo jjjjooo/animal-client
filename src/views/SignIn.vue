@@ -45,7 +45,7 @@
                   class="mb-4"
                 ></v-text-field>
               </ValidationProvider>
-              <v-btn small text to="/auth/sign-up"
+              <v-btn small text to="/members/sign-up"
                 >회원가입</v-btn
               >
               <v-btn
